@@ -3,7 +3,7 @@
 # for examples
 
 # set term to color
-# export TERM=xterm-256color
+export TERM=xterm-256color
 
 # 自己定制命令
 alias findfile='find . -depth -type f -iname "*" | xargs md5sum | grep --color -nE -ir'
