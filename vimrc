@@ -27,7 +27,6 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set list
 
 set mouse=
-set pastetoggle=<f12>
 " 设置默认进行大小写不敏感查找
 set ignorecase
 "如果有一个大写字母，则切换到大小写敏感查找
@@ -35,7 +34,7 @@ set smartcase
 "字符串搜索高亮显示
 set hlsearch
 "高亮不跳转
-nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr> 
+" nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr> 
 
 
 "set listchars=tab:>-,trail:-,space:·,eol:
@@ -51,7 +50,12 @@ set splitbelow
 
 "字符串搜索高亮显示
 set hlsearch
-nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr>
+" nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr>
+
+" 支持在Visual模式下，通过C-y复制到系统剪切板
+vnoremap <C-y> "+y
+" 支持在normal模式下，通过C-p粘贴系统剪切板
+" nnoremap <C-p> "+p
 
 
 set ruler
@@ -118,6 +122,8 @@ Plugin 'w0rp/ale'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'mbbill/echofunc'
 Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-scripts/a.vim'
 
 
 "werLine插件 状态栏增强展示
@@ -218,6 +224,21 @@ autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(win
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
 
+" 在tree中定位当前文件
+nnoremap <C-f> :NERDTreeFind<CR>
+
+"git信息直接在NERDTree中显示出来
+let g:NERDTreeGitStatusIndicatorMapCustom= {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 
 let g:winManagerWindowLayout='TagList'
 nmap wm :WMToggle<cr>
