@@ -117,7 +117,7 @@ Plugin 'bling/vim-bufferline' " Buffer line"
 "Plugin 'kepbod/quick-scope' " Quick scope
 Plugin 'yianwillis/vimcdoc'
 Plugin 'nelstrom/vim-visual-star-search'
-"Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'w0rp/ale'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'mbbill/echofunc'
@@ -177,18 +177,18 @@ let g:ycm_semantic_triggers =  {
 
 
 "" ===========gutentags=============
-"" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
-"
-"" 添加ctags额外参数，会让tags文件变大
-"" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
-" let g:gutentags_ctags_extra_args = ['--fields=+lS']
-"" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-"" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-"
-"if isdirectory("kernel/") && isdirectory("mm/")
-"	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
-"endif
+" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
+
+" 添加ctags额外参数，会让tags文件变大
+" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
+ let g:gutentags_ctags_extra_args = ['--fields=+lS']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+if isdirectory("kernel/") && isdirectory("mm/")
+	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
+endif
 	
 
 "==================== 显示/隐藏 MiniBufExplorer 窗口

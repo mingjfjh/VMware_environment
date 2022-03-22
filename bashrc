@@ -125,9 +125,8 @@ if ! shopt -oq posix; then
 fi
 
 export PATH=$PATH:/sbin
-export PATH=$PATH:/home/ming/app/bin
 export PATH=$PATH:/usr/local
-#export TERM=xterm
+export PATH=$PATH:/home/ming/app/bin
 #export VIMRUNTIME=~/.vim/bundle
 #export VIMRUNTIME=/usr/share/vim/vim81
 
