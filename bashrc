@@ -124,6 +124,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+##set terminal to English
+LANG=en_US.UTF-8
+LANGUAGE=en_US:en
+
+#LANG=zh_CN.UTF-8
+#LANGUAGE=zh_CN:en
+
 export PATH=$PATH:/sbin
 export PATH=$PATH:/usr/local
 export PATH=$PATH:/home/ming/app/bin
