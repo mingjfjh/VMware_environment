@@ -124,6 +124,7 @@ Plugin 'mbbill/echofunc'
 Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
+Plugin 'DoxygenToolkit.vim' "添加 Doxygen 风格的注释
 
 
 "werLine插件 状态栏增强展示
@@ -138,6 +139,40 @@ filetype plugin indent on    " required
 " " :PluginSearch foo - 搜索 foo ; 追加 `!` 清除本地缓存
 " " :PluginClean      - 清除未使用插件,需要确认; 追加 `!` 自动批准移除未使用插
 " vim +PluginInstall +qall
+
+
+
+" ============DoxygenToolkit===============
+let g:DoxygenToolkit_briefTag_post = "<++>"
+let g:DoxygenToolkit_briefTag_funcName = "yes"
+let g:DoxygenToolkit_commentType = "C"
+let g:DoxygenToolkit_briefTag_funcName="yes"
+let g:doxygen_enhanced_color=1
+" 注释快首尾
+let g:DoxygenToolkit_blockHeader="*******************************************************" 
+let g:DoxygenToolkit_blockFooter="*******************************************************" 
+" 作者
+let g:DoxygenToolkit_authorName="yuweici@tenda.cn"
+
+let g:DoxygenToolkit_versionTag = "@version 0.1"
+
+let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
+let g:DoxygenToolkit_paramTag_pre="@Param "
+let g:DoxygenToolkit_briefTag_post = "<++>"
+let g:DoxygenToolkit_briefTag_funcName = "yes"
+
+" Lincese
+let g:DoxygenToolkit_licenseTag = "Copyright (C) 2018 http://mounui.com\<enter>\<enter>Call Center On Demand Product Series\<enter>If you have any questions, please contact me at my blog. \<enter>All right reserved\<enter>\<enter>$$\<enter>TODO:\<enter>\<enter>*******************************************************"
+
+map <F2>a :DoxAuthor
+
+map <F2>f :Dox
+
+map <F2>b :DoxBlock
+
+map <F2>c O/** */<Left><Left>
+
+
 
 " ==============YCM==============
 "let g:ycm_server_python_interpreter='/usr/bin/python'
