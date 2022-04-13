@@ -125,11 +125,6 @@ Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'DoxygenToolkit.vim' "添加 Doxygen 风格的注释
-
-
-"werLine插件 状态栏增强展示
-"Bundle 'Lokaltog/vim-powerline'
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -140,9 +135,6 @@ filetype plugin indent on    " required
 " " :PluginClean      - 清除未使用插件,需要确认; 追加 `!` 自动批准移除未使用插
 " vim +PluginInstall +qall
 
-
-"select vim-airline-themes
-"let g:airline_theme="molokai" 
 
 " ============DoxygenToolkit===============
 let g:DoxygenToolkit_briefTag_post = "<++>"
@@ -195,7 +187,9 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_collect_identifiers_from_tags_files = 1
 
 set completeopt=menu,menuone   
-let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
+let g:ycm_add_preview_to_completeopt = 1  " 关闭函数原型提示
+let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_autoclose_preview_window_after_insertion = 0
 
 let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
 let g:ycm_server_log_level = 'info'
@@ -205,7 +199,7 @@ let g:ycm_complete_in_strings=1
 
 noremap <c-z> <NOP>
 let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
-let g:ycm_max_num_candidates = 10   "15"" 候选数量
+let g:ycm_max_num_candidates = 15   "15"" 候选数量
 
 let g:ycm_semantic_triggers =  {
 			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
@@ -383,3 +377,7 @@ set autoindent      " 自动缩进
 
 "设置复制模式快捷键
 set pastetoggle=<f12>
+
+
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
