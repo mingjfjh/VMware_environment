@@ -239,17 +239,21 @@ hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
 " =======echodoc 显示函数参数===========
 " ctags -R --fields=+lS .
 
+
+
+
+""" ========================================tagbar=============
 "设置tagbar的窗口宽度
 let g:tagbar_width=35
 "设置tagbar的窗口显示的位置,为左边
 "let g:tagbar_right=1
 let g:tagbar_left=1
 "打开文件自动 打开tagbar
-autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh call tagbar#autoopen()
+"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh call tagbar#autoopen()
 map <C-c> :TagbarToggle<CR>
 
 
-"======= NetRedTree=========
+"=================================== NetRedTree=========
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeWinSize=42
@@ -257,10 +261,17 @@ let NERDTreeWinSize=42
 let NERDTreeAutoCenter=1
 let NERDTreeShowBookmarks=1
 let g:NERDTreeShowLineNumbers=1  " 是否显示行号"
-"关闭最后窗口，tree自动关闭
-autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+
 "窗口放在右边
 let g:NERDTreeWinPos = "right"
+
+autocmd VimEnter * NERDTree
+autocmd BufEnter * NERDTreeMirror
+
+autocmd VimEnter * wincmd w
+"关闭最后窗口，tree自动关闭
+autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+
 " 设置NerdTree 按F3打开或关闭NERDTree
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
