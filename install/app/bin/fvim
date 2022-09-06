@@ -1,0 +1,11 @@
+#/bin/bash
+
+#['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
+
+if [ -e .root -o -e .svn -o -e .git -o -e .hg -o -e .project -o -e .gitignore ];then
+    vim "$@"
+else
+    echo "error, not .svn"
+fi
+
+

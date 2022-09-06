@@ -117,7 +117,7 @@ Plugin 'bling/vim-bufferline' " Buffer line"
 "Plugin 'kepbod/quick-scope' " Quick scope
 Plugin 'yianwillis/vimcdoc'
 Plugin 'nelstrom/vim-visual-star-search'
-"Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'w0rp/ale'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'mbbill/echofunc'
@@ -187,7 +187,7 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_collect_identifiers_from_tags_files = 1
 
 set completeopt=menu,menuone   
-let g:ycm_add_preview_to_completeopt = 1  " 关闭函数原型提示
+let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 0
 
@@ -240,9 +240,10 @@ hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
 " ctags -R --fields=+lS .
 
 "设置tagbar的窗口宽度
-let g:tagbar_width=30
+let g:tagbar_width=35
 "设置tagbar的窗口显示的位置,为左边
-let g:tagbar_right=1
+"let g:tagbar_right=1
+let g:tagbar_left=1
 "打开文件自动 打开tagbar
 autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh call tagbar#autoopen()
 map <C-c> :TagbarToggle<CR>
@@ -251,13 +252,15 @@ map <C-c> :TagbarToggle<CR>
 "======= NetRedTree=========
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-let NERDTreeWinSize=30
+let NERDTreeWinSize=42
 "let NERDTreeShowLineNumbers=1
 let NERDTreeAutoCenter=1
 let NERDTreeShowBookmarks=1
 let g:NERDTreeShowLineNumbers=1  " 是否显示行号"
 "关闭最后窗口，tree自动关闭
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+"窗口放在右边
+let g:NERDTreeWinPos = "right"
 " 设置NerdTree 按F3打开或关闭NERDTree
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
