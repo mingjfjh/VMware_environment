@@ -4,4 +4,7 @@ find ./ -name "*.h" > cscope.files
 find ./ -name "*.c" >> cscope.files
 cscope -bkq -i cscope.files
 ctags ./* -R
-touch 
+[ ! -f .svn ] && {
+    echo "touch .svn"
+    touch .svn
+}
