@@ -7,6 +7,7 @@ export TERM=export TERM=xterm-256color
 
 # 自己定制命令
 alias findfile='find . -depth -type f -iname "*" | xargs md5sum | grep --color -nE -ir'
+alias gep='grep --color -Ern --exclude=*.{js,html,txt} --exclude=cscope.* --exclude=tags --exclude-dir={.svn,.git,.gitignore,.project,.hg,.root}'
 
 
 # If not running interactively, don't do anything
@@ -64,9 +65,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
