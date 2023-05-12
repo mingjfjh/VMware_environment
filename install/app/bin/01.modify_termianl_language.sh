@@ -1,6 +1,8 @@
 #the shell just usering source command
 
-if [ "$1" == en  ]
+echo 'please use "source" commond!!!'
+
+if [ "$1" == "en" -o "$1" == "EN" ]
 then
     export LANG="en_US.UTF-8"
     export LANGUAGE="en_US"

@@ -9,8 +9,12 @@ set t_Co=256
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
+" colorscheme molokai
 
 set autowrite   " 自动保存
+
+set wrap " 自动换行
+" set nowrap
 
 set foldmethod=syntax
 set foldlevel=100  " 启动vim时不要自动折叠代码
@@ -22,6 +26,7 @@ set noerrorbells
 set showmatch
 set nobackup 
 set noswapfile
+set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 
 set list
@@ -52,14 +57,21 @@ set splitbelow
 set hlsearch
 " nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr>
 
+
+" set clipboard=unnamedplus
+
 " 支持在Visual模式下，通过C-y复制到系统剪切板
-vnoremap <C-y> "+y
+" vnoremap <C-y> "+y
+" vnoremap <C-y> :let @"=substitute(@", '\r\n', '\n', 'g')<CR>"+y<CR>
+" vnoremap <C-y> :let @"=substitute(@" , '\n\|', '', 'g')<CR>"+y<CR>
+" vnoremap <C-y> :let @+ = substitute(@" ,'\n\r\|\r\n\|\r\|\n', '', 'g')<CR>"+y<CR>
+" vnoremap <C-y> :w !xclip -sel clip<CR><CR>
 " 支持在normal模式下，通过C-p粘贴系统剪切板
 " nnoremap <C-p> "+p
 
 
+
 set ruler
-set nowrap
 set showcmd
 set history=100
 set cursorline
@@ -89,6 +101,39 @@ noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
 noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
+
+let mapleader=';'
+" 让配置变更立即生效
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" 定义快捷键到行首和行尾
+nmap LB 0
+nmap LE $
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nmap <Leader>p "+p
+" 定义快捷键关闭当前分割窗口
+nmap <Leader>q :q<CR>
+" 定义快捷键保存当前窗口内容
+nmap <Leader>w :w<CR>
+" 定义快捷键保存所有窗口内容并退出 vim
+nmap <Leader>WQ :wa<CR>:q<CR>
+" 不做任何保存，直接退出 vim
+nmap <Leader>Q :qa!<CR>
+" 依次遍历子窗口
+nnoremap nw <C-W><C-W>
+" 跳转至右方的窗口
+nnoremap <Leader>lw <C-W>l
+" 跳转至左方的窗口
+nnoremap <Leader>hw <C-W>h
+" 跳转至上方的子窗口
+nnoremap <Leader>kw <C-W>k
+" 跳转至下方的子窗口
+nnoremap <Leader>jw <C-W>j
+" 定义快捷键在结对符之间跳转
+nmap <Leader>M %
+
 
 " ==============Vundle插件管理==============
 " Vundle manage
@@ -136,6 +181,11 @@ filetype plugin indent on    " required
 " vim +PluginInstall +qall
 
 
+" ============================CtrlP Configuration===================
+let g:ctrlp_map = '<c-n>'
+" let g:ctrlp_cmd = 'CtrlP'
+
+
 " ============DoxygenToolkit===============
 let g:DoxygenToolkit_briefTag_post = "<++>"
 let g:DoxygenToolkit_briefTag_funcName = "yes"
@@ -180,7 +230,6 @@ let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 " let g:ycm_warning_symbol = 'O'
 
   " YCM 查找定义
-let mapleader=','
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -223,6 +272,18 @@ let g:ycm_semantic_triggers =  {
 	
 
 "==================== 显示/隐藏 MiniBufExplorer 窗口
+"
+" 打开 Vim 时自动开启 MiniBufExplorer
+" autocmd VimEnter * silent! MiniBufExplorer
+
+
+" 将 MiniBufExplorer 窗口默认放置在屏幕最下方
+" let g:miniBufExplVSplit = 30    " 设置 MiniBufExplorer 窗口的宽度
+let g:miniBufExplSplitBelow = 1 " 将 MiniBufExplorer 窗口放置在下面
+let g:miniBufExplSplitRight = 0
+" let g:miniBufExplPosition = 's' " 设置 MiniBufExplorer 窗口的位置为屏幕最下方
+" let g:miniBufExplHeight = 10    " 设置 MiniBufExplorer 窗口的高度为 10 行
+
 map <Leader>bl :MBEToggle<cr>
 
 " buffer 切换快捷键
@@ -236,6 +297,8 @@ hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
 hi MBEVisibleChanged       guifg=#F1266F guibg=fg
 hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
 
+
+
 " =======echodoc 显示函数参数===========
 " ctags -R --fields=+lS .
 
@@ -244,7 +307,7 @@ hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
 
 """ ========================================tagbar=============
 "设置tagbar的窗口宽度
-let g:tagbar_width=35
+let g:tagbar_width=30
 "设置tagbar的窗口显示的位置,为左边
 "let g:tagbar_right=1
 let g:tagbar_left=1
@@ -268,7 +331,8 @@ let g:NERDTreeWinPos = "right"
 autocmd VimEnter * NERDTree
 autocmd BufEnter * NERDTreeMirror
 
-autocmd VimEnter * wincmd w
+" autocmd VimEnter * wincmd w
+autocmd VimEnter * silent! execute 'NERDTree' | wincmd w
 "关闭最后窗口，tree自动关闭
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 
@@ -291,6 +355,9 @@ let g:NERDTreeGitStatusIndicatorMapCustom= {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+
+
+
 
 let g:winManagerWindowLayout='TagList'
 nmap wm :WMToggle<cr>

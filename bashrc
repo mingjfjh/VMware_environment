@@ -6,8 +6,21 @@
 export TERM=export TERM=xterm-256color
 
 # 自己定制命令
-alias findfile='find . -depth -type f -iname "*" | xargs md5sum | grep --color -nE -ir'
-alias gep='grep --color -Ern --exclude=*.{js,html,txt} --exclude=cscope.* --exclude=tags --exclude-dir={.svn,.git,.gitignore,.project,.hg,.root}'
+alias findfile='find . -depth -type f -iname "*" | xargs md5sum | grep --color -nE -ir --exclude=*.{js,html,txt} --exclude=cscope.* --exclude=tags --exclude-dir={.svn,.git,.gitignore,.project,.hg,.root}'
+alias gep='grep --color -Ern --exclude=*.{js,html,txt,css,vue,map,json} --exclude=cscope.* --exclude=tags --exclude-dir={.svn,.git,.gitignore,.project,.hg,.root}'
+alias history='history -w /dev/stdout | tail -n 50'
+
+
+#clash for ubuntu20.04
+alias clash='clash -d ~/app/clash/ > /dev/null 2>&1 &';
+alias clashstop='killall -9 clash';
+
+
+# 
+alias rot_vim='sudo vim';
+alias ming_vim='vim';
+
+
 
 
 # If not running interactively, don't do anything
@@ -134,7 +147,8 @@ LANGUAGE=en_US:en
 
 export PATH=$PATH:/sbin
 export PATH=$PATH:/usr/local
-export PATH=$PATH:/home/ming/app/bin
+export PATH=$PATH:~/app/bin
+export PATH=$PATH:~/app/link
 #export VIMRUNTIME=~/.vim/bundle
 #export VIMRUNTIME=/usr/share/vim/vim81
 
