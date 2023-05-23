@@ -39,7 +39,7 @@ set smartcase
 "字符串搜索高亮显示
 set hlsearch
 "高亮不跳转
-" nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr> 
+nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr> 
 
 
 "set listchars=tab:>-,trail:-,space:·,eol:
@@ -102,12 +102,12 @@ noremap <C-K> <C-W>k
 noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
 
-let mapleader=';'
+let mapleader=','
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " 定义快捷键到行首和行尾
-nmap LB 0
+nmap LB ^
 nmap LE $
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
@@ -134,6 +134,11 @@ nnoremap <Leader>jw <C-W>j
 " 定义快捷键在结对符之间跳转
 nmap <Leader>M %
 
+"noremap <L> <NOP>
+noremap L <Nop>
+
+
+" nnoremap
 
 " ==============Vundle插件管理==============
 " Vundle manage
@@ -170,6 +175,9 @@ Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'DoxygenToolkit.vim' "添加 Doxygen 风格的注释
+Plugin 'tpope/vim-commentary'
+Plugin 'kana/vim-textobj-entire'
+Plugin 'kana/vim-textobj-user'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -182,7 +190,7 @@ filetype plugin indent on    " required
 
 
 " ============================CtrlP Configuration===================
-let g:ctrlp_map = '<c-n>'
+let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_cmd = 'CtrlP'
 
 
@@ -246,8 +254,9 @@ let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
 let g:ycm_complete_in_strings=1
 
-noremap <c-z> <NOP>
-let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
+"noremap <c-z> <NOP>
+"let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
+let g:ycm_key_invoke_completion = '<Tab>'   " YCM 里触发语义补全有一个快捷键
 let g:ycm_max_num_candidates = 15   "15"" 候选数量
 
 let g:ycm_semantic_triggers =  {
@@ -263,7 +272,7 @@ let g:ycm_semantic_triggers =  {
 "" 添加ctags额外参数，会让tags文件变大
 "" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
 " let g:gutentags_ctags_extra_args = ['--fields=+lS']
-"" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 "" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 "
 "if isdirectory("kernel/") && isdirectory("mm/")
@@ -296,6 +305,7 @@ hi MBEChanged              guifg=#CD5907 guibg=fg
 hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
 hi MBEVisibleChanged       guifg=#F1266F guibg=fg
 hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
+let g:Powerline_colorscheme='solarized256'
 
 
 
@@ -331,8 +341,8 @@ let g:NERDTreeWinPos = "right"
 autocmd VimEnter * NERDTree
 autocmd BufEnter * NERDTreeMirror
 
-" autocmd VimEnter * wincmd w
-autocmd VimEnter * silent! execute 'NERDTree' | wincmd w
+autocmd VimEnter * wincmd w
+"autocmd VimEnter * silent! execute 'NERDTree' | wincmd w
 "关闭最后窗口，tree自动关闭
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 
@@ -360,7 +370,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom= {
 
 
 let g:winManagerWindowLayout='TagList'
-nmap wm :WMToggle<cr>
+"nmap wm :WMToggle<cr>
 
 " ======ALE静态语法检测========
 let g:ale_sign_column_always = 1
@@ -394,7 +404,17 @@ let g:airline_section_y = ''
 "set guifont=Ubuntu\ Mono\ for\ Powerline\ 12
 
 
+" ============vim-commentary============"
+"vim-commentary
+"为python和shell等添加注释
+autocmd FileType python,shell,coffee set commentstring=#\ %s
+"修改注释风格
+autocmd FileType java,c,cpp set commentstring=//\ %s
 
+" gcc     注释当前行（普通模式）
+" gc      可视模式下，注释当前选中的部分
+" gcu     撤销上一次注释的部分，可以是一行也可以是多行
+" gcgc    撤销注释当前行和邻近的上下两行
 
 "--------------------------------------------------------------------------------
 " cscope:建立数据库：cscope -Rbq；  F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
