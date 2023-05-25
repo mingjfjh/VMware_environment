@@ -36,10 +36,13 @@ set mouse=
 set ignorecase
 "如果有一个大写字母，则切换到大小写敏感查找
 set smartcase
+
 "字符串搜索高亮显示
-set hlsearch
+"set hlsearch
+set nohlsearch
+set incsearch
 "高亮不跳转
-nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr> 
+"nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr> 
 
 
 "set listchars=tab:>-,trail:-,space:·,eol:
@@ -52,24 +55,6 @@ set backspace=indent,eol,start
 "setting vps/sp's would open new file int the right/down of old file.
 set splitright
 set splitbelow
-
-"字符串搜索高亮显示
-set hlsearch
-" nnoremap <leader>* :<C-u>let @/ = expand('<cword>')<cr>
-
-
-" set clipboard=unnamedplus
-
-" 支持在Visual模式下，通过C-y复制到系统剪切板
-" vnoremap <C-y> "+y
-" vnoremap <C-y> :let @"=substitute(@", '\r\n', '\n', 'g')<CR>"+y<CR>
-" vnoremap <C-y> :let @"=substitute(@" , '\n\|', '', 'g')<CR>"+y<CR>
-" vnoremap <C-y> :let @+ = substitute(@" ,'\n\r\|\r\n\|\r\|\n', '', 'g')<CR>"+y<CR>
-" vnoremap <C-y> :w !xclip -sel clip<CR><CR>
-" 支持在normal模式下，通过C-p粘贴系统剪切板
-" nnoremap <C-p> "+p
-
-
 
 set ruler
 set showcmd
@@ -122,7 +107,7 @@ nmap <Leader>WQ :wa<CR>:q<CR>
 " 不做任何保存，直接退出 vim
 nmap <Leader>Q :qa!<CR>
 " 依次遍历子窗口
-nnoremap nw <C-W><C-W>
+nnoremap <Leader>nw <C-W><C-W>
 " 跳转至右方的窗口
 nnoremap <Leader>lw <C-W>l
 " 跳转至左方的窗口
@@ -131,14 +116,11 @@ nnoremap <Leader>hw <C-W>h
 nnoremap <Leader>kw <C-W>k
 " 跳转至下方的子窗口
 nnoremap <Leader>jw <C-W>j
-" 定义快捷键在结对符之间跳转
-nmap <Leader>M %
 
-"noremap <L> <NOP>
-noremap L <Nop>
-
-
-" nnoremap
+"" 定义快捷键在结对符之间跳转
+"nmap <Leader>M %
+"
+"noremap L <Nop>
 
 " ==============Vundle插件管理==============
 " Vundle manage
@@ -265,19 +247,19 @@ let g:ycm_semantic_triggers =  {
 			\ }
 
 
-""" ===========gutentags=============
-"" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
+"" ===========gutentags=============
+" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
 
-"" 添加ctags额外参数，会让tags文件变大
-"" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
-" let g:gutentags_ctags_extra_args = ['--fields=+lS']
-" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-"" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-"
-"if isdirectory("kernel/") && isdirectory("mm/")
-"	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
-"endif
+" 添加ctags额外参数，会让tags文件变大
+" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
+ let g:gutentags_ctags_extra_args = ['--fields=+lS']
+ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+if isdirectory("kernel/") && isdirectory("mm/")
+	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
+endif
 	
 
 "==================== 显示/隐藏 MiniBufExplorer 窗口
@@ -416,6 +398,7 @@ autocmd FileType java,c,cpp set commentstring=//\ %s
 " gcu     撤销上一次注释的部分，可以是一行也可以是多行
 " gcgc    撤销注释当前行和邻近的上下两行
 
+
 "--------------------------------------------------------------------------------
 " cscope:建立数据库：cscope -Rbq；  F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
 "--------------------------------------------------------------------------------
@@ -482,3 +465,4 @@ set pastetoggle=<f12>
 
 set completeopt=menu,menuone
 let g:ycm_add_preview_to_completeopt = 0
+
