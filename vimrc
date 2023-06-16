@@ -1,4 +1,51 @@
-
+"
+" gd 跳转到当前光标所在单词的首次出现位置(如果是在模块内则跳转到模块内的首次出现处,eg:函数内)
+" :set tags+=/path/to/tst/tags
+" :cs add /path/to/tst/cscope.out /path/to/tst
+"
+"添加包围符号：
+" 1. 选中文本，然后按下S键，接着输入要添加的包围符号，比如(、{或"等。
+" 2. 在普通模式下，将光标移动到要包围的文本周围，然后按下cs命令，接着输入要更改的包围符号。
+" 3. 修改包围符号：
+" 在普通模式下，将光标移动到包围符号的起始位置，然后按下cst命令，接着输入新的包围符号。
+" 4. 删除包围符号：
+" 选中文本，然后按下S键，接着输入空格，即可删除包围符号。
+" 在普通模式下，将光标移动到包围符号的起始位置，然后按下ds命令，即可删除包围符号。
+"
+"
+" 1. 在插入模式下: <ctrl+r>" 编辑模式粘贴对应寄存器的内容
+"
+" 2. 输入待命模式（Insert Normal Mode）：在插入模式下，按下 "Ctrl + O" 键可以进入输入待命模式。在该模式下，你可以执行一些普通模式的命令，而不必退出插入模式。
+"
+" 3. ge跳到上一个单词的末尾
+"
+" 4. 替换
+" :%s/foo/bar/g 全文替换
+" :s/foo/bar/g 改行替换
+"
+" 查找当前单词 # *
+"
+" sudo apt install global ----> gtags + :tag
+"
+"
+" mM ---> `M 全局标记与跳转
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
 set nocompatible
 set nu!             " 显示行号
 syntax enable
@@ -118,9 +165,22 @@ nnoremap <Leader>kw <C-W>k
 nnoremap <Leader>jw <C-W>j
 
 "" 定义快捷键在结对符之间跳转
-"nmap <Leader>M %
+nmap <Leader>M %
+
+
+" 
+"set nofoldenable
+set foldmethod=manual
+
+
+
 "
 "noremap L <Nop>
+
+" vim再次进入后还能回退之前进入的修改, 他会在undodir指定目录记录文件的修改 
+" 注意此文件大小
+"set undofile
+"set undodir=~/.vim/undo
 
 " ==============Vundle插件管理==============
 " Vundle manage
@@ -160,6 +220,8 @@ Plugin 'DoxygenToolkit.vim' "添加 Doxygen 风格的注释
 Plugin 'tpope/vim-commentary'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-user'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/matchit.zip'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -169,6 +231,18 @@ filetype plugin indent on    " required
 " " :PluginSearch foo - 搜索 foo ; 追加 `!` 清除本地缓存
 " " :PluginClean      - 清除未使用插件,需要确认; 追加 `!` 自动批准移除未使用插
 " vim +PluginInstall +qall
+
+
+
+" ============================ surround ===================
+" S命令：将所选文本包围在新的括号中。例如，选择文本后执行S(将文本用圆括号包围起来。
+" cs命令：更改包围符号。例如，选择文本后执行cs'"将文本的单引号包围符号更改为双引号。
+" ds命令：删除包围符号。例如，选择包围在引号中的文本后执行ds"将删除引号。
+" 这只是一些示例命令，tpope/vim-surround插件提供了更多命令和功能。你可以查看插件的文档或说明来了解更多详细信息。
+
+
+" ============================matchit===================
+runtime macros/matchit.vim
 
 
 " ============================CtrlP Configuration===================
@@ -227,18 +301,21 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 
 set completeopt=menu,menuone   
 let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
-let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_echo_current_diagnostic = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
 
-let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
 let g:ycm_server_log_level = 'info'
 let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
-let g:ycm_complete_in_strings=1
+let g:ycm_collect_identifiers_from_comments_and_strings = 0 " 收集
+let g:ycm_complete_in_strings=0
 
 "noremap <c-z> <NOP>
 "let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
-let g:ycm_key_invoke_completion = '<Tab>'   " YCM 里触发语义补全有一个快捷键
+"let g:ycm_key_invoke_completion = '<Tab>'   " YCM 里触发语义补全有一个快捷键
 let g:ycm_max_num_candidates = 15   "15"" 候选数量
 
 let g:ycm_semantic_triggers =  {
@@ -252,10 +329,14 @@ let g:ycm_semantic_triggers =  {
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
 
 " 添加ctags额外参数，会让tags文件变大
-" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
- let g:gutentags_ctags_extra_args = ['--fields=+lS']
- let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+KniazlS', '--extra=+q']
+" let g:gutentags_ctags_extra_args = ['--fields=+lS']
+let g:gutentags_ctags_extra_args = ['--c-kinds=+x']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+x']
+
+" ctags不包括函数原型, 不然ctrl+]回跳到原型哪里去
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+p']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+p']
 
 if isdirectory("kernel/") && isdirectory("mm/")
 	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
@@ -291,9 +372,6 @@ let g:Powerline_colorscheme='solarized256'
 
 
 
-" =======echodoc 显示函数参数===========
-" ctags -R --fields=+lS .
-
 
 
 
@@ -328,9 +406,9 @@ autocmd VimEnter * wincmd w
 "关闭最后窗口，tree自动关闭
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 
-" 设置NerdTree 按F3打开或关闭NERDTree
-map <F3> :NERDTreeMirror<CR>
-map <F3> :NERDTreeToggle<CR>
+" 设置NerdTree 按F5打开或关闭NERDTree
+map <F5> :NERDTreeMirror<CR>
+map <F5> :NERDTreeToggle<CR>
 
 " 在tree中定位当前文件
 nnoremap <C-f> :NERDTreeFind<CR>
@@ -410,6 +488,13 @@ if has("cscope")
   " add any database in current directory
   if filereadable("cscope.out")
       cs add cscope.out
+
+      " 自动更新 cscope 数据库并清空原有数据库
+      function! UpdateCscope()
+          silent! !cscope -Rbq
+          silent cs reset
+      endfunction
+      autocmd BufWritePost *.{c,h} call UpdateCscope()
   endif
   set csverb
 endif
@@ -429,11 +514,21 @@ nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 "nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 "F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
-nmap <silent> <F5> :cs find s <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR> 
-nmap <silent> <F6> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
-"nmap <silent> <F7> :cs find g <C-R>=expand("<cword>")<CR><CR> 
-nmap <silent> <F7> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+" nmap <silent> <F5> :cs find s <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR> 
+" nmap <silent> <F6> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+" nmap <silent> <F7> :cs find g <C-R>=expand("<cword>")<CR><CR> 
+" nmap <silent> <F8> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
 
+"F1 查找c符号； F2 查找字符串；   F3 查找函数定义； F4 查找函数谁调用了，
+noremap <F1> <Nop>
+noremap <F2> <Nop>
+noremap <F3> <Nop>
+noremap <F4> <Nop>
+
+nmap <silent> <F1> :cs find s <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR> 
+nmap <silent> <F2> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+nmap <silent> <F3> :cs find g <C-R>=expand("<cword>")<CR><CR> 
+nmap <silent> <F4> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
 
  "--------------------------------------------------------------------------------
 "  自动加载ctags: ctags -R
@@ -447,9 +542,14 @@ endif
 if filereadable("GTAGS")
 	set cscopetag
 	set cscopeprg=gtags-cscope
-	cs add GTAGS
+	silent cs add GTAGS
 	au BufWritePost *.c,*.cpp,*.h silent! !global -u &
 endif
+
+
+"Reinit all connections, 更新cscope数据库
+nnoremap <Leader>r :silent cs reset<CR><CR>
+
 
 
 set tabstop=4       " Tab键替换的空格长度，默认8
@@ -461,8 +561,4 @@ set autoindent      " 自动缩进
 
 "设置复制模式快捷键
 set pastetoggle=<f12>
-
-
-set completeopt=menu,menuone
-let g:ycm_add_preview_to_completeopt = 0
 
